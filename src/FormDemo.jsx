@@ -8,7 +8,7 @@ export default function FormDemo() {
     }
     return (
         <div>
-            <h1>Name is testing: boopinnn {name}</h1>
+            <h1>Name is testing: boopinn {name}</h1>
             <TextField id="outlined-basic" label="Puppy Name" placeholder="Fido" variant="outlined" value={name} onChange={updateName} />
         </div>
     )
