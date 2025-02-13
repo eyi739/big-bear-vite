@@ -9,6 +9,8 @@ const initialTodos = [
     {id: 5, text: "walk the chickens", completed: false},
 ]
 
+
+
 export default function TodoList() {
   const [todos, setTodos] = React.useState(initialTodos);
 
@@ -18,10 +20,28 @@ export default function TodoList() {
     })
   };
 
+  const toggleTodos = (id) => {
+    setTodos((prevTodos) => {
+      return prevTodos.map(todo => {
+        if(todo.id === id) {
+          return {...todo, completed: !todo.completed}
+        }
+        else {
+          return todo;
+        }
+      })
+    })
+  }
+
   return (
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       {todos.map((todo) => (
-        <TodoItem todo={todo} key={todo.id} remove={removeTodo}/> 
+        <TodoItem 
+          todo={todo} 
+          key={todo.id} 
+          remove={removeTodo} 
+          toggle={() => toggleTodos(todo.id)}
+        /> 
       ))}
     </List>
   )
