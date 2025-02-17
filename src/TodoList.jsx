@@ -9,8 +9,6 @@ const initialTodos = [
     {id: 5, text: "walk the chickens", completed: false},
 ]
 
-
-
 export default function TodoList() {
   const [todos, setTodos] = React.useState(initialTodos);
 
