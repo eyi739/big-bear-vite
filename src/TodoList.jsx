@@ -1,6 +1,7 @@
 import * as React from 'react';
 import List from '@mui/material/List';
 import TodoItem from './TodoItem';
+import TodoForm from './TodoForm';
 
 const initialTodos = [
     {id: 1, text: "walk the dog", completed: true},
@@ -41,6 +42,7 @@ export default function TodoList() {
           toggle={() => toggleTodos(todo.id)}
         /> 
       ))}
+      <TodoForm/>
     </List>
   )
 }
