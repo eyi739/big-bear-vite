@@ -66,6 +66,8 @@ function App() {
  return ( 
   <div>
     <TodoList/>
+    <TodoList/>
+    <TodoList/>
   </div>
 )}
 
