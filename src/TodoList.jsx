@@ -32,6 +32,12 @@ export default function TodoList() {
     })
   }
 
+  const addTodo = (text) => {
+    setTodos(prevTodos => {
+      return [...prevTodos, {text: text, id: 8, completed: false }]
+    })
+  }
+
   return (
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       {todos.map((todo) => (
@@ -40,9 +46,10 @@ export default function TodoList() {
           key={todo.id} 
           remove={removeTodo} 
           toggle={() => toggleTodos(todo.id)}
+          
         /> 
       ))}
-      <TodoForm/>
+      <TodoForm addTodo={addTodo}/>
     </List>
   )
 }
