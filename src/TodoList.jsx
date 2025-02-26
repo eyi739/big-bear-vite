@@ -50,7 +50,7 @@ useEffect(() => {
 
   const addTodo = (text) => {
     setTodos(prevTodos => {
-      return [...prevTodos, {text: text, id: 8, completed: false }]
+      return [...prevTodos, {text: text, id: crypto.randomUUID(), completed: false }]
     })
   }
 

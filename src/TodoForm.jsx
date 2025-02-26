@@ -3,6 +3,7 @@ import { IconButton, InputAdornment } from "@mui/material";
 import ListItem from "@mui/material/ListItem";
 import TextField from "@mui/material/TextField";
 import Create from "@mui/icons-material/Create"
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import { useState } from "react";
 
@@ -22,7 +23,7 @@ export default function TodoForm({addTodo}){
             <form onSubmit={handleSubmit}>
             <TextField 
                 id="outlined-basic" 
-                label="Outlined" 
+                label="Add Todo" 
                 variant="outlined" 
                 onChange={handleChange} 
                 value={text}
@@ -30,8 +31,8 @@ export default function TodoForm({addTodo}){
                     endAdornment: (
                     <InputAdornment position="end">
                         <IconButton aria-label="create todo" edge="end" type="submit">
-                    <Create/>
-                    </IconButton>
+                            <Create/>
+                        </IconButton>
                 </InputAdornment>
             ),
         }}
