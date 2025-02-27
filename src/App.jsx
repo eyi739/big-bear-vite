@@ -19,6 +19,7 @@ import AlarmIcon from "@mui/icons-material/Alarm"
 import RatingDemo from './RatingDemo';
 import FormDemo from './FormDemo';
 import TodoList from './TodoList';
+import Navbar from './Navbar';
 
 
 import { sum } from './utils';
