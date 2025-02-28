@@ -66,6 +66,7 @@ import QuoteFetcher from './QuoteFetcherLoader';
 function App() {
  return ( 
   <div>
+    <Navbar/>
     <TodoList/>
   </div>
 )}
