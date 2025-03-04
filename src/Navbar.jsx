@@ -25,7 +25,7 @@ export default function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             React Todos
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">Login here</Button>
         </Toolbar>
       </AppBar>
     </Box>
