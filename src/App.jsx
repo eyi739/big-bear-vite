@@ -20,6 +20,7 @@ import RatingDemo from './RatingDemo';
 import FormDemo from './FormDemo';
 import TodoList from './TodoList';
 import Navbar from './Navbar';
+import ResponsiveNavbar from './ResponsiveNavbar';
 
 
 import { sum } from './utils';
@@ -67,6 +68,7 @@ function App() {
  return ( 
   <div>
     <Navbar/>
+    {/* <ResponsiveNavbar/> */}
     <TodoList/>
   </div>
 )}
