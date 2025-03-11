@@ -1,29 +1,106 @@
+import * as React from 'react';
+import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import SearchIcon from '@mui/icons-material/Search';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import { Drawer } from '@mui/material';
+
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  width: '100%',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
+}));
 
 
-export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown'
-       && (event.key === 'Tab') || event.key === 'Shift')
-     {
-        return;
-    }
-    setOpen(open);
-  }
+
+export default function SearchAppBar() {
+   const [open, setOpen] = React.useState(false);
   
+    const toggleDrawer = (newOpen) => () => {
+      setOpen(newOpen);
+    };
+
+    const DrawerList = (
+      <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    );
+    
   return (
-    <Box sx={{ 
-      flexGrow: 1, 
-    }}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -31,35 +108,31 @@ export default function Navbar() {
             edge="start"
             color="inherit"
             aria-label="open drawer"
+            sx={{ mr: 2 }}
             onClick={toggleDrawer(true)}
-            sx={{ mr: 2, display: {xs: 'block', sm: 'none'} }}
           >
-            <MenuIcon />
+            <MenuIcon/>
           </IconButton>
-          <Drawer
-          // from which side the drawer slides in
-          anchor="right" 
- 
-          //if and how easily the drawer can be closed
-          variant="temporary"
- 
-          //if open is true, drawer is shown
-          open={open} 
-          
-          //function that is called when the drawer should close
-          onClose={toggleDrawer(false)} 
-          
-          //function that is called when the drawer should open
-          onOpen={toggleDrawer(true)}
-        >
-            <Box>
-              {/* The inside of the drawer */}
-            </Box>
-        </Drawer>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Big Bear Market
+          <Drawer open={open} onClose={toggleDrawer(false)}>
+                  {DrawerList}
+          </Drawer>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+            MUI
           </Typography>
-          <Button color="inherit">Login here</Button>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
         </Toolbar>
       </AppBar>
     </Box>
