@@ -21,7 +21,8 @@ import FormDemo from './FormDemo';
 import TodoList from './TodoList';
 import Navbar from './Navbar';
 import ResponsiveNavbar from './ResponsiveNavbar';
-
+import { useState, useEffect} from "react";
+import axios from 'axios';
 
 import { sum } from './utils';
 import QuoteFetcher from './QuoteFetcherLoader';
@@ -65,11 +66,30 @@ import QuoteFetcher from './QuoteFetcherLoader';
 // }
 
 function App() {
+  const [array, setArray] = useState([]);
+
+  const fetchAPI = async () => {
+    const response = await axios.get("http://localhost:8080/api");
+    setArray(response.data.fruits);
+    console.log(response.data.fruits);
+  }
+
+  useEffect(() => {
+    fetchAPI();
+  }, []);
+
  return ( 
   <div>
     <Navbar/>
-    {/* <ResponsiveNavbar/> */}
     <TodoList/>
+    {
+      array.map((fruit, index) => (
+        <div key={index}>
+          <p>{fruit}</p>
+          <br></br>
+        </div>
+      ))
+    }
   </div>
 )}
 

@@ -72,7 +72,7 @@ export default function SearchAppBar() {
     const DrawerList = (
       <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
         <List>
-          {['Home', 'Starred', 'Send email', 'Drafts', 'All Products'].map((text, index) => (
+          {['Home','All Products'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
