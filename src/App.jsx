@@ -23,6 +23,8 @@ import Navbar from './Navbar';
 import ResponsiveNavbar from './ResponsiveNavbar';
 import { useState, useEffect} from "react";
 import axios from 'axios';
+import productIndex from './views/products/ProductIndex';
+
 
 import { sum } from './utils';
 import QuoteFetcher from './QuoteFetcherLoader';
@@ -69,7 +71,7 @@ function App() {
   const [array, setArray] = useState([]);
 
   const fetchAPI = async () => {
-    const response = await axios.get("http://localhost:8080/api");
+    const response = await axios.get(`http://localhost:8080/api`);
     setArray(response.data.fruits);
     console.log(response.data.fruits);
   }
@@ -78,10 +80,13 @@ function App() {
     fetchAPI();
   }, []);
 
+  
  return ( 
   <div>
+ 
     <Navbar/>
     <TodoList/>
+  
     {
       array.map((fruit, index) => (
         <div key={index}>
