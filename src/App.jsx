@@ -23,7 +23,7 @@ import Navbar from './Navbar';
 import ResponsiveNavbar from './ResponsiveNavbar';
 import { useState, useEffect} from "react";
 import axios from 'axios';
-import productIndex from './views/products/ProductIndex';
+import ProductIndex from './views/products/ProductIndex';
 
 
 import { sum } from './utils';
@@ -83,18 +83,9 @@ function App() {
   
  return ( 
   <div>
- 
     <Navbar/>
     <TodoList/>
-  
-    {
-      array.map((fruit, index) => (
-        <div key={index}>
-          <p>{fruit}</p>
-          <br></br>
-        </div>
-      ))
-    }
+    <ProductIndex/>
   </div>
 )}
 
