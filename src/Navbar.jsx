@@ -16,6 +16,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import HomeIcon from '@mui/icons-material/Home';
+
 import { Drawer } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
@@ -52,10 +54,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
+      width: '245ch',
+      // '&:focus': {
+      //   width: '20ch',
+      // },
     },
   },
 }));
@@ -76,7 +78,7 @@ export default function SearchAppBar() {
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index % 2 === 0 ? <HomeIcon /> : ""}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
@@ -101,7 +103,7 @@ export default function SearchAppBar() {
     
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar color="info" position="static">
         <Toolbar>
           <IconButton
             size="large"

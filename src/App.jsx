@@ -82,10 +82,18 @@ function App() {
 
   
  return ( 
-  <div>
+  <div className="App">
     <Navbar/>
     <TodoList/>
-    <ProductIndex/>
+    {
+      array.map((fruit, index) => (
+        <div key={index}>
+          <p>{fruit}</p>
+          <br />
+        </div>
+      ))
+    }
+    {/* <ProductIndex/> */}
   </div>
 )}
 
