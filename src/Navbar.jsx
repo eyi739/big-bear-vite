@@ -17,6 +17,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import HomeIcon from '@mui/icons-material/Home';
+import CategoryIcon from '@mui/icons-material/Category';
 
 import { Drawer } from '@mui/material';
 
@@ -78,7 +79,7 @@ export default function SearchAppBar() {
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <HomeIcon /> : ""}
+                  {index % 2 === 0 ? <HomeIcon /> : <CategoryIcon/>}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>

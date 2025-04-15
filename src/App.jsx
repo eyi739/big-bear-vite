@@ -21,9 +21,14 @@ import FormDemo from './FormDemo';
 import TodoList from './TodoList';
 import Navbar from './Navbar';
 import ResponsiveNavbar from './ResponsiveNavbar';
+import HomePage from './pages/Home/HomePage';
+
 import { useState, useEffect} from "react";
 import axios from 'axios';
 import ProductIndex from './views/products/ProductIndex';
+import { RouterProvider } from 'react-router-dom';
+
+import router from "../../big-bear-vite-server/src/Routes/Routes.jsx";
 
 
 import { sum } from './utils';
@@ -83,17 +88,8 @@ function App() {
   
  return ( 
   <div className="App">
-    <Navbar/>
-    <TodoList/>
-    {
-      array.map((fruit, index) => (
-        <div key={index}>
-          <p>{fruit}</p>
-          <br />
-        </div>
-      ))
-    }
-    {/* <ProductIndex/> */}
+      {/* <RouterProvider router={router}/> */}
+      <HomePage/>
   </div>
 )}
 
