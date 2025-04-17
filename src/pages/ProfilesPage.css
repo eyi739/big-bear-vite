@@ -1,0 +1,4 @@
+.ProfilesPage {
+    display: flex;
+    flex-direction: column;
+}
