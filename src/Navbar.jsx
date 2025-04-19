@@ -20,6 +20,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import CategoryIcon from '@mui/icons-material/Category';
 
 import { Drawer } from '@mui/material';
+import { Link } from 'react-router-dom'
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -72,11 +74,18 @@ export default function SearchAppBar() {
       setOpen(newOpen);
     };
 
+    // const drawerItems = [
+    //   { text: 'Home', path: '/' },
+    //   { text: 'All products', path: '/products' },
+    //   { text: 'Contact', path: '/contact' },
+    // ];
+
+    const drawerItems = ['Home', 'All Products'];
     const DrawerList = (
       <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
         <List>
-          {['Home','All Products'].map((text, index) => (
-            <ListItem key={text} disablePadding>
+          {drawerItems.map((text, index) => (
+            <ListItem key={text} disablePadding component={Link} to={'/home'}>
               <ListItemButton>
                 <ListItemIcon>
                   {index % 2 === 0 ? <HomeIcon /> : <CategoryIcon/>}
@@ -88,7 +97,7 @@ export default function SearchAppBar() {
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['All mail', 'Trash', 'Spam', 'About'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>

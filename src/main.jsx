@@ -41,12 +41,10 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: <ProfilePage/>,
-    errorElement: <NotFoundPage/>,
   },
   {
-    path: '/profiles',
-    element: <ProfilesPage/>,
-    errorElement: <NotFoundPage/>,
+    path: '/profiles/:profileId',
+    element: <ProfilePage/>,
   },
 ])
 
