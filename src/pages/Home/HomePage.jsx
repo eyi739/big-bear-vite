@@ -8,6 +8,7 @@ export default function HomePage(){
         <div>
             <Navbar/>
             <h1>THIS IS THE HOME PAGE</h1>
+            <h2>Products will be shown here</h2>
             {/* <FullBorderedGrid/> */}
         </div>
     )
