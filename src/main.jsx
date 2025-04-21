@@ -39,13 +39,14 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage/>,
   },
   {
-    path: '/profile',
-    element: <ProfilePage/>,
+    path: '/profiles',
+    element: <ProfilesPage/>,
+    children: [{
+      path: '/profiles/:profileId',
+      element: <ProfilePage/>,
+    }],
   },
-  {
-    path: '/profiles/:profileId',
-    element: <ProfilePage/>,
-  },
+  
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

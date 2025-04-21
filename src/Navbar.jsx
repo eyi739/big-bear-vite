@@ -85,7 +85,7 @@ export default function SearchAppBar() {
       <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
         <List>
           {drawerItems.map((text, index) => (
-            <ListItem key={text} disablePadding component={Link} to={'/home'}>
+            <ListItem key={text} disablePadding component={Link} to={index % 2 === 0 ? '/' : '/profiles'}>
               <ListItemButton>
                 <ListItemIcon>
                   {index % 2 === 0 ? <HomeIcon /> : <CategoryIcon/>}
