@@ -1,27 +1,3 @@
-// import { StrictMode } from 'react';
-// import { createRoot } from 'react-dom/client';
-// import { BrowserRouter } from "react-router";
-// import { createBrowserRouter, RouterProvider } from 'react-router-dom'; 
-
-// import App from './App.jsx';
-// import './index.css';
-
-// import HomePage from './pages/Home/HomePage.jsx';
-
-// const router = createBrowserRouter([
-//   {
-//     path: '/',
-//     element: <HomePage/>,
-//     errorElement: <div>404 Not Found</div>
-//   },
-// ])
-
-// createRoot(document.getElementById('root')).render(
-//   <BrowserRouter>
-//       <App />
-//   </BrowserRouter>
-// )
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
