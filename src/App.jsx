@@ -1,4 +1,5 @@
 import './App.css';
+import { useState, useEffect} from "react";
 import Slots from "./Slots";
 import Counter from './Counter';
 import Toggler from './Toggler';
@@ -23,7 +24,7 @@ import Navbar from './Navbar';
 import ResponsiveNavbar from './ResponsiveNavbar';
 import HomePage from './pages/Home/HomePage';
 
-import { useState, useEffect} from "react";
+
 import axios from 'axios';
 import ProductIndex from './views/products/ProductIndex';
 import { RouterProvider } from 'react-router-dom';
@@ -76,8 +77,7 @@ function App() {
   const [array, setArray] = useState([]);
 
   const fetchAPI = async () => {
-    const response = await axios.get(`http://localhost:8080/api`);
-    setArray(response.data.fruits);
+    const response = await axios.get('http://localhost:8080/api');
     console.log(response.data.fruits);
   }
 
@@ -91,6 +91,14 @@ function App() {
       {/* <RouterProvider router={router}/> */}
       {/* <HomePage/> */}
       <HomePage/>
+      {
+        array.map((fruit, index) => {
+          <div key={index}>
+            <p>{fruit}</p>
+            <br />
+          </div>
+        })
+      }
   </div>
 )}
 
