@@ -78,26 +78,26 @@ function App() {
 
   const fetchAPI = async () => {
     const response = await axios.get('http://localhost:8080/api');
+    setArray(response.data.fruits);
     console.log(response.data.fruits);
   }
 
   useEffect(() => {
     fetchAPI();
-  }, []);
+  }, []); 
 
   
  return ( 
   <div className="App">
       {/* <RouterProvider router={router}/> */}
-      {/* <HomePage/> */}
       <HomePage/>
       {
-        array.map((fruit, index) => {
+        array.map((fruit, index) => (
           <div key={index}>
             <p>{fruit}</p>
             <br />
           </div>
-        })
+        ))
       }
   </div>
 )}

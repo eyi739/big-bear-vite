@@ -5,7 +5,7 @@ export default function Home(){
     return (
         <>
             <h1>Home</h1>
-            <h2>API data: {data}</h2>
+            <h2>API data: {data} {import.meta.env.VITE_SERVER_HOST} {import.meta.env.VITE_SERVER_PORT}</h2>
         </>
     )
 }

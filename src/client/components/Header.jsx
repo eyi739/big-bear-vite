@@ -1,13 +1,13 @@
-import {Link} from 'react-router-dom';
+import Link from '@mui/material/Link';
 
 export default function Header () {
     return (
         <>
             <nav>
                 <ul>
-                    <li><Link to="/"/>Home</li>
-                    <li><Link to="/about"/>About</li>
-                    <li><Link to="/contact"/>Contact</li>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/about">About</Link></li>
+                    <li><Link to="/contact">Contact</Link></li>
                 </ul>
             </nav>
         </>
