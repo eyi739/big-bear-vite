@@ -7,7 +7,7 @@ export default function useFetch(path) {
         const controller = new AbortController();
         const { signal } = controller;
 
-        fetch(`http://${process.env.SERVER_HOST}: ${process.env.SERVER_PORT}${path}`, {signal})
+        fetch(`http://${process.env.VITE_SERVER_HOST}: ${process.env.VITE_SERVER_PORT}${path}`, {signal})
             .then(resp => resp.json())
             .then(data => {setData(data)})
             .catch(err => console.error(err));

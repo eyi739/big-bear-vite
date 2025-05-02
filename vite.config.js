@@ -15,6 +15,14 @@ export default defineConfig(({ mode }) => {
         'process.env': {},
     },
     plugins: [react()],
+    server: {
+      proxy: {
+        '/api': {
+          target: 'http://localhost:5173',
+          changeOrigin: true,
+        },
+      },
+    },
   }
 })
 
