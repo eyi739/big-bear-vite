@@ -1,7 +1,7 @@
 import useFetch from '../hooks/useFetch';
 
 export default function Contact(){
-    const data = useFetch('/api/contact');
+    const data = useFetch('/contact');
     return (
         <>
             <h1>Contact</h1>

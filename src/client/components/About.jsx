@@ -1,7 +1,7 @@
 import useFetch from '../hooks/useFetch';
 
 export default function About(){
-    const data = useFetch('/api/about');
+    const data = useFetch('/about');
     return (
         <>
             <h1>About</h1>

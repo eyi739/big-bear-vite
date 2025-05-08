@@ -48,14 +48,7 @@ function App() {
   <div className="App">
       {/* <RouterProvider router={router}/> */}
       {/* <HomePage/> */}
-      {/* {
-        array.map((fruit, index) => (
-          <div key={index}>
-            <p>{fruit}</p>
-            <br />
-          </div>
-        ))
-      } */}
+      
   </div>
 )}
 
