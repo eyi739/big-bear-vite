@@ -43,19 +43,7 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  const [array, setArray] = useState([]);
 
-  const fetchAPI = async () => {
-    const response = await axios.get('http://localhost:8080/api');
-    setArray(response.data.fruits);
-    console.log(response.data.fruits);
-  }
-
-  useEffect(() => {
-    fetchAPI();
-  }, []); 
-
-  
  return ( 
   <div className="App">
       {/* <RouterProvider router={router}/> */}

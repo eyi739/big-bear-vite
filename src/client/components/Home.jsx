@@ -1,11 +1,11 @@
 import useFetch from '../hooks/useFetch';
 
 export default function Home(){
-    const data = useFetch('/api/home');
+    const data = useFetch('/home');
     return (
         <>
             <h1>Home</h1>
-            <h2>API data: {data} </h2>
+            <h2>API data: {data} {import.meta.env.VITE_SERVER_HOST} {import.meta.env.VITE_SERVER_PORT}</h2>
         </>
     )
 }

@@ -77,9 +77,8 @@ function App() {
   const [array, setArray] = useState([]);
 
   const fetchAPI = async () => {
-    const response = await axios.get('http://localhost:8080/api');
-    setArray(response.data.fruits);
-    console.log(response.data.fruits);
+    const response = await axios.get('http://localhost:8080/');
+    console.log(response.data.message);
   }
 
   useEffect(() => {
@@ -90,7 +89,7 @@ function App() {
  return ( 
   <div className="App">
       {/* <RouterProvider router={router}/> */}
-      <HomePage/>
+      {/* <HomePage/> */}
       {/* {
         array.map((fruit, index) => (
           <div key={index}>
