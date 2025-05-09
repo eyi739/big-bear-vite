@@ -8,7 +8,7 @@ const apiHost2 = import.meta.env.VITE_SERVER_HOST;
 const apiPort2= import.meta.env.VITE_SERVER_PORT;
 
 export default function useFetch(path) {
-    const [array, setArray] = useState([]);
+    // const [array, setArray] = useState({});
     const [ data, setData ] = useState({message: 'Loading...'});
 
       const fetchAPI = async () => {
@@ -17,7 +17,7 @@ export default function useFetch(path) {
         console.log(response.data.message);
       }
     
-      useEffect(() => {
+    useEffect(() => {
         fetchAPI();
       }, []); 
 
@@ -25,11 +25,13 @@ export default function useFetch(path) {
         // cancel the fetch request 
         const controller = new AbortController();
         const { signal } = controller;
-        const apiUrl = `http://${process.env.VITE_SERVER_HOST}/${process.env.VITE_SERVER_PORT}${path}`
+        const apiUrl = `http://${process.env.VITE_SERVER_HOST}:${process.env.VITE_SERVER_PORT}${path}`
         const apiUrl2 = `http://${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}${path}`
+        const apiUrl3 = `http://localhost:8080${path}`
         
         console.log(apiHost2,apiPort2);
-        fetch(apiUrl2, {signal})
+        console.log(apiUrl2, apiUrl);
+        fetch(apiUrl3, {signal})
             .then(resp => resp.json())
             .then(data => {setData(data)})
             .catch(err => console.error(err));
