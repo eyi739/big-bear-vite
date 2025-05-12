@@ -21,7 +21,18 @@ import CategoryIcon from '@mui/icons-material/Category';
 
 import { Drawer } from '@mui/material';
 import { Link } from 'react-router-dom'
+import { createTheme } from '@mui/material/styles';
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#c2185b',
+    },
+    secondary: {
+      main: '#ffffff',
+    },
+  },
+});
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -51,13 +62,14 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   width: '100%',
+  display: 'flex',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     [theme.breakpoints.up('sm')]: {
-      width: '245ch',
+      width: '175ch',
       // '&:focus': {
       //   width: '20ch',
       // },
@@ -67,7 +79,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 
-export default function SearchAppBar() {
+export default function Navbar() {
    const [open, setOpen] = React.useState(false);
   
     const toggleDrawer = (newOpen) => () => {
@@ -85,7 +97,7 @@ export default function SearchAppBar() {
       <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
         <List>
           {drawerItems.map((text, index) => (
-            <ListItem key={text} disablePadding component={Link} to={index % 2 === 0 ? '/' : '/profiles'}>
+            <ListItem key={text} disablePadding component={Link} to={index % 2 === 0 ? '/' : '/products'}>
               <ListItemButton>
                 <ListItemIcon>
                   {index % 2 === 0 ? <HomeIcon /> : <CategoryIcon/>}
@@ -113,7 +125,7 @@ export default function SearchAppBar() {
     
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar color="info" position="static">
+      <AppBar color={"primary"} position="static">
         <Toolbar>
           <IconButton
             size="large"
