@@ -14,8 +14,14 @@ import Contact from './client/components/Contact.jsx';
 import About from './client/components/About.jsx';
 import Layout from './client/components/Layout.jsx';
 import Home from './client/components/Home.jsx';
+import MakeProduct from './pages/Products/MakeProduct.jsx';
 
 const router = createBrowserRouter([
+  {
+    path: '/makeproduct',
+    element: <MakeProduct/>,
+    errorElement: <NotFoundPage/>,
+  },
   {
     path: '/',
     element: <HomePage/>,
@@ -24,6 +30,7 @@ const router = createBrowserRouter([
   {
     path: '/products',
     element: <ProductIndex/>,
+    errorElement: <NotFoundPage/>,
   },
   {
     path: '/profiles',
@@ -32,6 +39,7 @@ const router = createBrowserRouter([
       path: '/profiles/:profileId',
       element: <ProfilePage/>,
     }],
+    errorElement: <NotFoundPage/>,
   },
   // {
   //   element: <Layout />,
