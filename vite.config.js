@@ -10,11 +10,11 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
     // vite config
+    plugins: [react()],
     define: {
       __APP_ENV__: JSON.stringify(env.APP_ENV),
         'process.env': {},
     },
-    plugins: [react()],
     server: {
       proxy: {
         '/api': {
@@ -23,6 +23,18 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
+    build: {
+      ssr: true,
+      lib: {
+        entry: path.resolve(__dirname, 'src/entry-server.jsx'),
+              name: 'Server',
+              fileName: 'server',
+              formats: ['cjs'],
+      },
+      rollupOptions: {
+        external: ['react', 'react-dom'],
+      }
+    }
   }
 })
 
