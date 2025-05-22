@@ -25,16 +25,16 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       ssr: true,
+      outDir: 'dist/server',
       lib: {
-        entry: path.resolve(__dirname, 'src/entry-server.jsx'),
-              name: 'Server',
-              fileName: 'server',
-              formats: ['cjs'],
+      entry: 'src/server/index.js',
+      name: 'server',
+      formats: ['cjs'],
       },
-      rollupOptions: {
-        external: ['react', 'react-dom'],
-      }
-    }
+    },
+  ssr: {
+    external: ['react', 'react-dom'],
+  },
   }
 })
 

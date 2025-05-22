@@ -1,5 +1,5 @@
-import Navbar from "../../Navbar.jsx"
-import Grid from "../../layouts/Grid.jsx"
+import Navbar from "../../../Navbar.jsx"
+import Grid from "../../../layouts/Grid.jsx"
 
 
 
