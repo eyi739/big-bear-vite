@@ -9,7 +9,7 @@ const apiPort2= import.meta.env.VITE_SERVER_PORT;
 
 export default function useFetch(path) {
     // const [array, setArray] = useState({});
-    const [ data, setData ] = useState({message: 'Loading...'});
+    const [ data, setData ] = useState({name: 'useStatePlaceholder'});
 
       const fetchAPI = async () => {
         // const response = await axios.get('http://localhost:8080/');
@@ -41,6 +41,6 @@ export default function useFetch(path) {
         
     }, []);
     
-    return data.message;
+    return data.name;
 }
 

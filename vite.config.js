@@ -23,18 +23,6 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
-    build: {
-      ssr: true,
-      outDir: 'dist/server',
-      lib: {
-      entry: 'src/server/index.js',
-      name: 'server',
-      formats: ['cjs'],
-      },
-    },
-  ssr: {
-    external: ['react', 'react-dom'],
-  },
   }
 })
 
