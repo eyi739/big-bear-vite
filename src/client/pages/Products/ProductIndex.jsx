@@ -6,8 +6,10 @@ export default function ProductIndex(){
     return (
         <div>
             <Navbar/>
-            <h1>All Products will be displayed here</h1>
-            <h2>{data}</h2>
+            <h1>All Products will be displayed here!</h1>
+            {data.map((item,index)=> (
+                <li key={index}>{item}</li>
+            ))}
         </div>
     )
 }

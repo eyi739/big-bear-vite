@@ -15,14 +15,15 @@ export default defineConfig(({ mode }) => {
       __APP_ENV__: JSON.stringify(env.APP_ENV),
         'process.env': {},
     },
-    server: {
-      proxy: {
-        '/api': {
-          target: 'http://localhost:5173',
-          changeOrigin: true,
-        },
-      },
-    },
+    // server: {
+    //   proxy: {
+    //     '/api': {
+    //       target: 'http://localhost:5173',
+    //       changeOrigin: true,
+    //       secure: false,
+    //     },
+    //   },
+    // },
   }
 })
 
