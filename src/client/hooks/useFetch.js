@@ -8,14 +8,14 @@ const apiHost2 = import.meta.env.VITE_SERVER_HOST;
 const apiPort2= import.meta.env.VITE_SERVER_PORT;
 
 export default function useFetch(path) {
-    // const [array, setArray] = useState({});
+    // const [path, setPath] = useState('/');
     const [ data, setData ] = useState([]);
 
       const fetchAPI = async () => {
-        const response = await axios.get('http://localhost:8080/api');
-        setData(response.data.fruits)
+        const response = await axios.get('http://localhost:8080/api/products');
+        setData(response.data)
         // const response = await axios.get(`http://${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}${path}`);
-        // console.log(response.data.fruits);
+        console.log(response.data);
       }
     
     // useEffect(() => {
