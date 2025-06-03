@@ -12,7 +12,7 @@ export default function useFetch(path) {
     const [ data, setData ] = useState([]);
 
       const fetchAPI = async () => {
-        const response = await axios.get('http://localhost:8080/api/products');
+        const response = await axios.get(`http://localhost:8080${path}`);
         setData(response.data)
         // const response = await axios.get(`http://${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}${path}`);
         console.log(response.data);

@@ -5,16 +5,17 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import HomePage from './client/pages/Home/HomePage.jsx';
 import NotFoundPage from './client/pages/NotFoundPage.jsx';
+import MakeProduct from './client/pages/Products/MakeProduct.jsx';
 import ProfilePage from './client/pages/ProfilePage.jsx';
 import ProfilesPage from './client/pages/ProfilesPage.jsx';
-// import ProductIndex from './views/products/ProductIndex.jsx';
 import ProductIndex from './client/pages/Products/ProductIndex.jsx'
+import ShowPage from './client/pages/Products/ShowPage.jsx';
 
 import Contact from './client/components/Contact.jsx';
 import About from './client/components/About.jsx';
 import Layout from './client/components/Layout.jsx';
 import Home from './client/components/Home.jsx';
-import MakeProduct from './client/pages/Products/MakeProduct.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
     path: '/products',
     element: <ProductIndex/>,
     errorElement: <NotFoundPage/>,
+  },
+  {
+    path: '/products/:productId',
+    element: <ShowPage/>
   },
   {
     path: '/profiles',
