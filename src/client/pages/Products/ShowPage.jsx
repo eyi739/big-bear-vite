@@ -5,7 +5,7 @@ export default function ShowPage(){
     console.log(params);
     return (
         <div>
-            <h1>This is the Show Page !  {params.productId}</h1>
+            <h1>This is the Show Page ! For this parameter: /products/{params.productId}</h1>
         </div>
     )
 }

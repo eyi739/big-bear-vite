@@ -11,7 +11,7 @@ export default function ProductIndex(){
             {
                 data.map((product, index) => (
                     <li key={index}>
-                        <Link key={product} to={'/products/:productId'}>
+                        <Link key={product} to={`/products/${product.title}`}>
                             {product.title}
                         </Link>
                     </li>
