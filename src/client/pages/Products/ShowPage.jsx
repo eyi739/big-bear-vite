@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-
+import UsernameForm from "../Profiles/UsernameForm";
 export default function ShowPage(){
     const params = useParams();
     console.log(params);

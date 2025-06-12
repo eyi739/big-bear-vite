@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import HomePage from './client/pages/Home/HomePage.jsx';
 import NotFoundPage from './client/pages/NotFoundPage.jsx';
-import MakeProduct from './client/pages/Products/MakeProduct.jsx';
+import MakeProductForm from './client/pages/Products/MakeProductForm.jsx';
 import ProfilePage from './client/pages/ProfilePage.jsx';
 import ProfilesPage from './client/pages/ProfilesPage.jsx';
 import ProductIndex from './client/pages/Products/ProductIndex.jsx'
@@ -19,15 +19,16 @@ import Home from './client/components/Home.jsx';
 
 const router = createBrowserRouter([
   {
-    path: '/makeproduct',
-    element: <MakeProduct/>,
-    errorElement: <NotFoundPage/>,
-  },
-  {
     path: '/',
     element: <HomePage/>,
     errorElement: <NotFoundPage/>,
   },
+  {
+    path: '/products/new',
+    element: <MakeProductForm/>,
+    errorElement: <NotFoundPage/>,
+  },
+  
   {
     path: '/products',
     element: <ProductIndex/>,
