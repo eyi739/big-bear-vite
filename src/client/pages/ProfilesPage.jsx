@@ -8,6 +8,9 @@ export default function ProfilesPage(){
             <h1>THIS IS THE PROFILES PAGE</h1>
             {
                 profiles.map((profile) => (
+                    // <Link key={profile} to={`/profiles/${profile}`}>
+                    //     Profile {profile}
+                    // </Link>
                     <Link key={profile} to={`/profiles/${profile}`}>
                         Profile {profile}
                     </Link>

@@ -15,6 +15,7 @@ import Contact from './client/components/Contact.jsx';
 import About from './client/components/About.jsx';
 import Layout from './client/components/Layout.jsx';
 import Home from './client/components/Home.jsx';
+import EditProductPage from './client/pages/Products/EditProductPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: '/products/:productId',
     element: <ShowPage/>
+  },
+  {
+    path: '/products/:productId/edit',
+    element: <EditProductPage/>
   },
   {
     path: '/profiles',

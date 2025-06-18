@@ -15,7 +15,7 @@ export default function useFetch(path) {
         const response = await axios.get(`http://localhost:8080${path}`);
         setData(response.data)
         // const response = await axios.get(`http://${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}${path}`);
-        console.log(response.data);
+        // console.log(response.data);
       }
     
     // useEffect(() => {
@@ -40,7 +40,7 @@ export default function useFetch(path) {
         };
         
     }, []);
-    console.log(data);
+    // console.log(data);
     return data
 }
 

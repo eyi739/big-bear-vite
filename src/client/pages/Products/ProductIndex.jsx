@@ -18,14 +18,14 @@ export default function ProductIndex(){
                     
                 ))
             }
-            <Outlet/>
+            {/* <Outlet/> */}
             {/* {data.map((item,index)=> (
                 <li key={index}><a href="/products/:profileId">{item.title}</a></li>
                 // <Link key={product} to={"/products/:profileId"}>
                 //         Profile {product}
                 //     </Link>
             ))} */}
-            
+
         </div>
     )
 }

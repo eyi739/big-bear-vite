@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-export default function MakeProductForm() {
+export default function EditProductPage() {
     // const [product, setProduct] = useState('');
     const [title, setTitle ] = useState('');
     const [price, setPrice ] = useState(0);
@@ -55,6 +55,7 @@ export default function MakeProductForm() {
                 <button>Submit</button>
                 <p>{title}</p>
             </form>
+            <Link to={'/'}>Go back to home</Link>
         </div>
     )
 }
