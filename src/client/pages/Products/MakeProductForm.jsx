@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function MakeProductForm() {
     // const [product, setProduct] = useState('');
     const [title, setTitle ] = useState('');
     const [price, setPrice ] = useState(0);
     const [category, setCategory ] = useState('fruit');
+    const [isPending, setIsPending] = useState(false);
     const navigate = useNavigate();
 
     const updateProduct = (evt) => {
@@ -14,18 +15,19 @@ export default function MakeProductForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(title);
+        setIsPending(true)
+
         const product = { title, price, category };
-        console.log(product);
+
         fetch('http://localhost:8080/products', {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(product)
         }).then(()=> {
             console.log('new product added');
-            navigate('/products');
+            navigate(`/products`);
+            setIsPending(false);
         })
-        
     }
 
     return (
@@ -52,9 +54,14 @@ export default function MakeProductForm() {
                     </select>
                     {/* <input type="text" id="category" placeholder="enter product category" value={category} onChange={(evt) => setCategory(evt.target.value)}  /> */}
                 </div>
-                <button>Submit</button>
-                <p>{title}</p>
+                {!isPending && <button>Add New Product</button>}
+                {isPending && <button disabled>Adding New Product..</button>}
             </form>
+            <footer>
+                <Link to={'/products'}>
+                    Go back to all products
+                </Link>
+            </footer>
         </div>
     )
 }

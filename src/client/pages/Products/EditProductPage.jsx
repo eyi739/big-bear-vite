@@ -1,40 +1,63 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState,  } from "react";
+import { useNavigate, Link, useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch"
+// import axios from "axios";
 
-export default function EditProductPage() {
-    // const [product, setProduct] = useState('');
+export default function EditProductPage({productId}) {
     const [title, setTitle ] = useState('');
     const [price, setPrice ] = useState(0);
     const [category, setCategory ] = useState('fruit');
+   
     const navigate = useNavigate();
+    const {id} = useParams();
+    console.log(id);
+    // const data = useFetch('`http://localhost:8080/products/' + id)
+    // const {data: title, price, category } = useFetch('http://localhost:8080/products/' 
 
-    const updateProduct = (evt) => {
-        setTitle(evt.target.value);
-    };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // console.log(title);
-        const product = { title, price, category };
-        console.log(product);
-        fetch('http://localhost:8080/products', {
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(product)
-        }).then(()=> {
-            console.log('new product added');
-            navigate('/products');
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+
+    //     const product = { title, price, category };
+    //     console.log(product);
+    //     fetch(`http://localhost:8080/products/${product._id}`, {
+    //         method: 'PUT',
+    //         // headers: {"Content-Type": "application/json"},
+    //         // body: JSON.stringify(product)
+    //     }).then(()=> {
+    //         console.log('product has been edited');
+    //         navigate('/products');
+    //     });
+    // }
+
+    const handleClick = () => {
+        fetch('http://localhost:8080/products/:productId/' + id, {
+            method: 'DELETE'
+            // headers: {"Content-Type": "application/json"},
+        }).then(() => {
+            navigate.push('/')
+            console.log('product deleted')
         })
-        
     }
+    
+    // const handleClick = () => {
+    //     axios.delete(`/api/products/${id}`)
+    //     .then(()=> {
+    //         console.log('product has been deleted')
+    //         navigate('/products');
+    //     })
+    //     .catch(error => {
+    //         console.log(error);
+    //     })
+    // }
 
     return (
         <div>
-            <h1>This is the make new product form</h1>
-            <form onSubmit={handleSubmit}>
+            <h1>This is the product EDIT form</h1>
+            <form>
                 <div>
                     <label htmlFor="title">Enter the product title:</label>
-                    <input type="text" id="title" placeholder="enter product name" value={title} onChange={(evt) => setTitle(evt.target.value)}  />
+                    <input type="text" id="title" placeholder='placeholder' value={title} name="title" onChange={(evt) => setTitle(evt.target.value)}  />
                 </div>
                 <div>
                     <label htmlFor="price">Enter the product price:</label>
@@ -52,7 +75,8 @@ export default function EditProductPage() {
                     </select>
                     {/* <input type="text" id="category" placeholder="enter product category" value={category} onChange={(evt) => setCategory(evt.target.value)}  /> */}
                 </div>
-                <button>Submit</button>
+                <button>Submit Edits</button>
+                <button onClick={handleClick}>Delete</button>
                 <p>{title}</p>
             </form>
             <Link to={'/'}>Go back to home</Link>

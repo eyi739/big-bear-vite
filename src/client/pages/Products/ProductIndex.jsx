@@ -1,6 +1,6 @@
 import Navbar from "../../../Navbar"
 import useFetch from "../../hooks/useFetch"
-import { Link, Outlet } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 export default function ProductIndex(){
     const data = useFetch('/api/products/');
