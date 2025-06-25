@@ -14,17 +14,11 @@ export default function useFetch(path) {
       const fetchAPI = async () => {
         const response = await axios.get(`http://localhost:8080${path}`);
         setData(response.data)
-        // const response = await axios.get(`http://${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}${path}`);
-        // console.log(response.data);
       }
-    
-    // useEffect(() => {
-    //     fetchAPI();
-    //   }, []); 
 
     useEffect(() => {
         fetchAPI();
-        
+
         // cancel the fetch request 
         const controller = new AbortController();
         const { signal } = controller;

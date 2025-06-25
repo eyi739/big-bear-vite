@@ -3,7 +3,9 @@ import { useNavigate, Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch"
 // import axios from "axios";
 
-export default function EditProductPage({productId}) {
+export default function EditProductPage() {
+    const {data} = useFetch('/api/products');
+    console.log({data});
     const [title, setTitle ] = useState('');
     const [price, setPrice ] = useState(0);
     const [category, setCategory ] = useState('fruit');
