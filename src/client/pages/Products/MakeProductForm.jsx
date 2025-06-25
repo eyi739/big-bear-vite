@@ -6,7 +6,7 @@ export default function MakeProductForm() {
     const [title, setTitle ] = useState('');
     const [price, setPrice ] = useState(0);
     const [category, setCategory ] = useState('fruit');
-    const [isPending, setIsPending] = useState(false);
+    const [isPending, setIsPending] = useState(true);
     const navigate = useNavigate();
 
     const updateProduct = (evt) => {

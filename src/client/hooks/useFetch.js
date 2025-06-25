@@ -23,8 +23,9 @@ export default function useFetch(path) {
     //   }, []); 
 
     useEffect(() => {
-        // cancel the fetch request 
         fetchAPI();
+        
+        // cancel the fetch request 
         const controller = new AbortController();
         const { signal } = controller;
         const apiUrl = `http://${process.env.VITE_SERVER_HOST}:${process.env.VITE_SERVER_PORT}${path}`
@@ -40,7 +41,7 @@ export default function useFetch(path) {
         };
         
     }, []);
-    // console.log(data);
+    
     return data
 }
 
