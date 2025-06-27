@@ -17,7 +17,6 @@ import Layout from './client/components/Layout.jsx';
 import Home from './client/components/Home.jsx';
 import EditProductPage from './client/pages/Products/EditProductPage.jsx';
 
-
 const router = createBrowserRouter([
   {
     path: '/',
