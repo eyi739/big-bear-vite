@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch"
 // import UsernameForm from "../Profiles/UsernameForm";
 
 export default function ShowPage(){
-    const data = useFetch(`/api/products`);
+    const data = useFetch('/api/products');
     const {productId } = useParams();
     console.log(data);
     // console.log(params)

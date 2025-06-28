@@ -10,6 +10,7 @@ const apiPort2= import.meta.env.VITE_SERVER_PORT;
 export default function useFetch(path) {
     // const [path, setPath] = useState('/');
     const [ data, setData ] = useState([]);
+    const [isPending, setIsPending] = useState(false)
 
       const fetchAPI = async () => {
         const response = await axios.get(`http://localhost:8080${path}`);

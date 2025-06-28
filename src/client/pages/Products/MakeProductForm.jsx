@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function MakeProductForm() {
+    const navigate = useNavigate();
     // const [product, setProduct] = useState('');
     const [title, setTitle ] = useState('');
     const [price, setPrice ] = useState(0);
     const [category, setCategory ] = useState('fruit');
-    const [isPending, setIsPending] = useState(true);
-    const navigate = useNavigate();
+    const [isPending, setIsPending] = useState(false);
+    
 
     const updateProduct = (evt) => {
         setTitle(evt.target.value);
@@ -22,12 +23,13 @@ export default function MakeProductForm() {
         fetch('http://localhost:8080/products', {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(product)
+            body: JSON.stringify(product),
         }).then(()=> {
-            console.log('new product added');
-            navigate(`/products`);
-            setIsPending(false);
-        })
+            navigate.push('/products');
+            
+        }).catch(err => {
+            console.error(err);
+        });
     }
 
     return (

@@ -4,15 +4,16 @@ import useFetch from "../../hooks/useFetch"
 // import axios from "axios";
 
 export default function EditProductPage() {
-    const {data} = useFetch('/api/products');
-    console.log({data});
+    const {productId} = useParams();
+    const {data: product,} = useFetch('/api/products/' + productId);
+    console.log(productId);
     const [title, setTitle ] = useState('');
     const [price, setPrice ] = useState(0);
     const [category, setCategory ] = useState('fruit');
    
     const navigate = useNavigate();
-    const {id} = useParams();
-    console.log(id);
+    
+    // console.log('/api/products/' + product.id);
     // const data = useFetch('`http://localhost:8080/products/' + id)
     // const {data: title, price, category } = useFetch('http://localhost:8080/products/' 
 
@@ -33,11 +34,11 @@ export default function EditProductPage() {
     // }
 
     const handleClick = () => {
-        fetch('http://localhost:8080/products/:productId/' + id, {
+        fetch('http://localhost:8080/api/products/' + productId, {
             method: 'DELETE'
             // headers: {"Content-Type": "application/json"},
         }).then(() => {
-            navigate.push('/')
+            navigate('/products')
             console.log('product deleted')
         })
     }
@@ -55,7 +56,7 @@ export default function EditProductPage() {
 
     return (
         <div>
-            <h1>This is the product EDIT form</h1>
+            <h1>This is the product EDIT form for this product</h1>
             <form>
                 <div>
                     <label htmlFor="title">Enter the product title:</label>
