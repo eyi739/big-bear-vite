@@ -1,12 +1,14 @@
 import { useState,  } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch"
-// import axios from "axios";
+import axios from "axios";
 
 export default function EditProductPage() {
     const {productId} = useParams();
-    const {data: product,} = useFetch('/api/products/' + productId);
-    console.log(productId);
+    const data = useFetch('/api/products/' + productId);
+    
+    // console.log(data);
+
     const [title, setTitle ] = useState('');
     const [price, setPrice ] = useState(0);
     const [category, setCategory ] = useState('fruit');
@@ -34,14 +36,22 @@ export default function EditProductPage() {
     // }
 
     const handleClick = () => {
+        // axios.delete('http://localhost:8080/api/products/' + productId)
+        // .then(resp => {
+        //     console.log('Resource deleted:', resp.data)
+        // })
+        // .catch(err => {
+        //     console.error(err);
+        // })
         fetch('http://localhost:8080/api/products/' + productId, {
-            method: 'DELETE'
-            // headers: {"Content-Type": "application/json"},
+            method: 'DELETE',
         }).then(() => {
-            navigate('/products')
-            console.log('product deleted')
-        })
-    }
+            navigate('/products');
+            console.log('product deleted');
+        }).catch(err => {
+            console.error(err);
+        });
+    };
     
     // const handleClick = () => {
     //     axios.delete(`/api/products/${id}`)
