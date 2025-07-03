@@ -25,7 +25,7 @@ export default function MakeProductForm() {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(product),
         }).then(()=> {
-            navigate.push('/products');
+            navigate('/');
             
         }).catch(err => {
             console.error(err);

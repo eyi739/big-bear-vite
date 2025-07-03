@@ -8,15 +8,13 @@ const apiHost2 = import.meta.env.VITE_SERVER_HOST;
 const apiPort2= import.meta.env.VITE_SERVER_PORT;
 
 export default function useFetch(path) {
-    // const [path, setPath] = useState('/');
     const [ data, setData ] = useState([]);
     // const [isPending, setIsPending] = useState(false)
 
-      const fetchAPI = async () => {
-        const response = await axios.get(`http://localhost:8080${path}`);
-        setData(response.data);
-        console.log(response.data);
-      }
+    const fetchAPI = async () => {
+      const response = await axios.get(`http://localhost:8080${path}`);
+      setData(response.data);
+    }
 
     useEffect(() => {
         fetchAPI();
@@ -33,11 +31,12 @@ export default function useFetch(path) {
             .then(data => {setData(data)})
             .catch(err => console.error(err));
         return () => {
-            controller.abort();
+            const abort = controller.abort();
+            console.log(abort);
         };
         
     }, []);
     
-    return data
+    return data;
 }
 
