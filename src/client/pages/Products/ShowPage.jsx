@@ -5,9 +5,8 @@ import useFetch from "../../hooks/useFetch"
 
 export default function ShowPage(){
     const { productId } = useParams();
-    console.log(productId);
     const data = useFetch(`/products/${productId}`);
-    console.log(data);
+   
 
 
     return (
