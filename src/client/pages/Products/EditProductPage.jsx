@@ -6,8 +6,9 @@ import { EventBusyTwoTone } from "@mui/icons-material";
 
 export default function EditProductPage() {
     const {productId} = useParams();
+    
     const {data} = useFetch('/api/products/'+ productId);
-   
+    
     const [formData, setFormData] = useState({title: '', price: 1, category: 'fruit'});
 
     // const [title, setTitle ] = useState('');
@@ -50,23 +51,19 @@ export default function EditProductPage() {
     }
 
     const handleDeleteClick = () => {
-        // axios.delete('http://localhost:8080/api/products/' + productId)
-        // .then(resp => {
-        //     console.log('Resource deleted:', resp.data)
-        // })
-        // .catch(err => {
-        //     console.error(err);
-        // })
-        fetch('http://localhost:8080/products/' + productId, {
+        
+        fetch('http://localhost:8080/api/delete/' + productId, {
             method: 'DELETE',
         }).then(() => {
             navigate('/');
+            // put code to delete from front end 
             console.log('product deleted');
         }).catch(err => {
             console.error(err);
         });
     };
-    
+
+
     // const handleClick = () => {
     //     axios.delete(`/api/products/${id}`)
     //     .then(()=> {
