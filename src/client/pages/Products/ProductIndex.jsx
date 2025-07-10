@@ -5,7 +5,7 @@ import { Link, useParams, useNavigate } from "react-router-dom"
 export default function ProductIndex(){
     const data = useFetch('/api/products/');
     const navigate = useNavigate();
-   console.log(data);
+    console.log(data);
     return (
         <div>
             <Navbar/>

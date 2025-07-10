@@ -7,8 +7,8 @@ import { EventBusyTwoTone } from "@mui/icons-material";
 export default function EditProductPage() {
     const {productId} = useParams();
     
-    const {data} = useFetch('/api/products/'+ productId);
-    
+    const data = useFetch('/api/products/'+ productId);
+    console.log(data);
     const [formData, setFormData] = useState({title: '', price: 1, category: 'fruit'});
 
     // const [title, setTitle ] = useState('');
@@ -78,7 +78,7 @@ export default function EditProductPage() {
     return (
         <div>
             <h1>This is the product EDIT form for this product</h1>
-            <h2>Data from {productId} 
+            <h2>Data from {productId.title} 
                 <p>title: {formData.title}, price: {formData.price}, category: {formData.category},</p> 
                
             </h2>

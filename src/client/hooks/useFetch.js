@@ -37,6 +37,6 @@ export default function useFetch(path) {
         
     }, []);
     
-    return data;
+    return {data};
 }
 

@@ -5,15 +5,14 @@ import useFetch from "../../hooks/useFetch"
 
 export default function ShowPage(){
     const { productId } = useParams();
-    const data = useFetch(`/products/${productId}`);
-   
-
-
+    const {data: product} = useFetch(`/products/${productId}`);
+    console.log(product);
     return (
         <div>
             <h1>This is the Show Page ! For this parameter: /products/{productId}</h1>
             <h2>{productId}</h2>
-            <button>delete</button>
+            {/* <h3>{product.title}</h3> */}
+
             <footer><Link to={`/products/${productId}/edit`}>Edit</Link></footer>
             {/* <Outlet/> */}
         </div>
