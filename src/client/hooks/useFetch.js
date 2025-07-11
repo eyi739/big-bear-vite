@@ -9,7 +9,8 @@ const apiPort2= import.meta.env.VITE_SERVER_PORT;
 
 export default function useFetch(path) {
     const [ data, setData ] = useState([]);
-    // const [isPending, setIsPending] = useState(false)
+    const [error, setError] = useState(null);
+    const [isPending, setIsPending] = useState(true)
 
     const fetchAPI = async () => {
       const response = await axios.get(`http://localhost:8080${path}`);
@@ -29,14 +30,20 @@ export default function useFetch(path) {
         fetch(`http://${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}${path}`, {signal})
             .then(resp => resp.json())
             .then(data => {setData(data)})
-            .catch(err => console.error(err));
+            .catch((error) => {
+                if (error.name === 'AbortError') {
+                    console.log("Fetch aborted:", error.message);
+                } else {
+                    console.error(error);
+                }
+                });
         return () => {
-            const abort = controller.abort();
+            const abort = controller.abort("Component unmounted");
             console.log(abort);
         };
         
     }, []);
     
-    return {data};
+    return data;
 }
 

@@ -6,8 +6,7 @@ import { EventBusyTwoTone } from "@mui/icons-material";
 
 export default function EditProductPage() {
     const {productId} = useParams();
-    
-    const data = useFetch('/api/products/'+ productId);
+    const data = useFetch(`/products/${productId}`);
     console.log(data);
     const [formData, setFormData] = useState({title: '', price: 1, category: 'fruit'});
 
@@ -51,11 +50,11 @@ export default function EditProductPage() {
     }
 
     const handleDeleteClick = () => {
-        
-        fetch('http://localhost:8080/api/delete/' + productId, {
+        console.log('HANDLEDELETE CLICK HAS BEEN CLICKED')
+        fetch('http://localhost:8080/api/products/' + productId, {
             method: 'DELETE',
         }).then(() => {
-            navigate('/');
+            // navigate('/products');
             // put code to delete from front end 
             console.log('product deleted');
         }).catch(err => {
@@ -78,8 +77,8 @@ export default function EditProductPage() {
     return (
         <div>
             <h1>This is the product EDIT form for this product</h1>
-            <h2>Data from {productId.title} 
-                <p>title: {formData.title}, price: {formData.price}, category: {formData.category},</p> 
+            <h2>Data from {data.title} 
+                <p>title: {data.title}, price: ${data.price}, category: {data.category},</p> 
                
             </h2>
             <form>
