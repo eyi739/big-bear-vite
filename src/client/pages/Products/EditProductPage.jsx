@@ -50,7 +50,6 @@ export default function EditProductPage() {
     }
 
     const handleDeleteClick = () => {
-        console.log('HANDLEDELETE CLICK HAS BEEN CLICKED')
         fetch('http://localhost:8080/api/products/' + productId, {
             method: 'DELETE',
         }).then(() => {
