@@ -10,9 +10,9 @@ export default function MakeProductForm() {
     const [isPending, setIsPending] = useState(false);
     
 
-    const updateProduct = (evt) => {
-        setTitle(evt.target.value);
-    };
+    // const updateProduct = (evt) => {
+    //     setTitle(evt.target.value);
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();

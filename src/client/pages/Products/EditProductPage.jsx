@@ -2,7 +2,6 @@ import { useState,  } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch"
 import axios from "axios";
-import { EventBusyTwoTone } from "@mui/icons-material";
 
 export default function EditProductPage() {
     const {productId} = useParams();
@@ -21,17 +20,18 @@ export default function EditProductPage() {
     // const {data: title, price, category } = useFetch('http://localhost:8080/products/' 
 
 
-    const handleSubmit = (e) => {
+    const handleUpdateClick = (e) => {
         e.preventDefault();
+        const { title, price, category } = formData;
         const product = { title, price, category };
         console.log(product);
-        fetch(`http://localhost:8080/products/${product}`, {
+        fetch('http://localhost:8080/api/products/' + productId, {
             method: 'PUT',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(product)
         }).then(()=> {
-            console.log('product has been edited');
-            navigate('/');
+            console.log('product has been edited', product);
+            navigate('/products');
         });
     }
 
@@ -61,18 +61,6 @@ export default function EditProductPage() {
         });
     };
 
-
-    // const handleClick = () => {
-    //     axios.delete(`/api/products/${id}`)
-    //     .then(()=> {
-    //         console.log('product has been deleted')
-    //         navigate('/products');
-    //     })
-    //     .catch(error => {
-    //         console.log(error);
-    //     })
-    // }
-
     return (
         <div>
             <h1>This is the product EDIT form for this product</h1>
@@ -101,7 +89,7 @@ export default function EditProductPage() {
                     </select>
                     {/* <input type="text" id="category" placeholder="enter product category" value={category} onChange={(evt) => setCategory(evt.target.value)}  /> */}
                 </div>
-                <button>Submit Edits</button>
+                <button onClick={handleUpdateClick}>Submit Edits</button>
                 <button onClick={handleDeleteClick}>Delete</button>
                 
             </form>
