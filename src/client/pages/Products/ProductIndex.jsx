@@ -2,7 +2,7 @@ import Navbar from "../../../Navbar";
 import useFetch from "../../hooks/useFetch";
 
 import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -19,9 +19,9 @@ export default function ProductIndex(){
             <CssBaseline/>
             <Navbar/>
             <Typography variant="h1">All Products will be displayed here!!</Typography>
-            <Grid container display="flex-col" justifyContent="center" alignItems="center" sx={{ m: 2 }} >
+            <Grid container display="flex-col"  sx={{ mx: 'auto', justifyContent: 'flex-end', }} >
                 {data.map((product, index) => (
-                <Grid item key={product.id} xs={12} sm={6} md={4}>
+                <Grid item key={product.id} xs={12} sm={6} md={4} sx={{px: 2}}>
                     <Card>
                         <CardMedia
                             component="img"
@@ -29,7 +29,14 @@ export default function ProductIndex(){
                             image={product.image}
                             alt={product.title}
                         />
-                        <CardContent>
+                        <CardContent 
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',  // horizontal centering
+                                justifyContent: 'center', // vertical centering if needed
+                            }}
+                        >
                             <Typography variant="h6">{product.title}</Typography>
                             <Typography color="text.secondary">${product.price}</Typography>
                             <Typography variant="body2" color="text.secondary">
