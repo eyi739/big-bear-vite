@@ -1,4 +1,3 @@
-import Navbar from "../../../Navbar";
 import useFetch from "../../hooks/useFetch";
 
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,7 +16,6 @@ export default function ProductIndex(){
     return (
         <div>
             <CssBaseline/>
-            <Navbar/>
             <Typography variant="h1">All Products will be displayed here!!</Typography>
             <Grid container display="flex-col"  sx={{ mx: 'auto', justifyContent: 'flex-end', }} >
                 {data.map((product, index) => (
@@ -40,19 +38,19 @@ export default function ProductIndex(){
                             <Typography variant="h6">{product.title}</Typography>
                             <Typography color="text.secondary">${product.price}</Typography>
                             <Typography variant="body2" color="text.secondary">
-                            Category: {product.category}
+                                Category: {product.category}
                             </Typography>
                             <Link key={product} to={`/products/${product.id}`}>
-                                        {product.title}
+                                {product.title}
                             </Link>
                         </CardContent>
                     </Card>
                 </Grid>
 
-                    // <li key={index} data-id={product.id}>
-                        // <Link key={product} to={`/products/${product.id}`}>
-                        //     {product.title}
-                        // </Link>
+                    // <li key={product.id} data-id={product.id}>
+                    //     <Link to={`/products/${product.id}`}>
+                    //         {product.title}
+                    //     </Link>
                     // </li>
                 ))}
             </Grid>

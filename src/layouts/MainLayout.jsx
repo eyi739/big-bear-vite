@@ -1,13 +1,14 @@
-import React from "react";
 import Navbar from "../Navbar.jsx";
 import { Outlet } from "react-router-dom";
 
-const Main = () => {
+const MainLayout = () => {
     return (
         <div>
             <Navbar/>
-            <Outlet/>
+            <main>
+                <Outlet />
+            </main>    
         </div>
     )
 }
-export default Main;
+export default MainLayout;
