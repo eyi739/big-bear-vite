@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { useForm } from 'react-hook-form';
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { useForm, Controller } from 'react-hook-form';
+import { useNavigate, Link, } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
@@ -10,65 +9,55 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 
-import useFetch from "../../hooks/useFetch"
+const categories = ['fruit', 'vegetable','poultry', 'dairy', 'meat', 'canned goods'];
 
 export default function MakeProductForm() {
     const navigate = useNavigate();
-    const {productId} = useParams();
-    const [formData, setFormData] = useState({title: '', price: 1, category: 'fruit'});
-    const [isPending, setIsPending] = useState(false);
 
-    const data = useFetch(`/products/${productId}`);
-
-    // const [title, setTitle ] = useState('');
-    // const [price, setPrice ] = useState(0);
-    // const [category, setCategory ] = useState('fruit');
-
-    const categories = ['fruit', 'vegetable','poultry', 'dairy', 'meat', 'canned goods'];
-    
     const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
+    control,
+    watch,
     } = useForm();
 
-    const handleChange = (evt) => {
-        const changedField = evt.target.name;
-        const newValue = evt.target.value;
-        setFormData((currData) => {
-            return {
-                ...currData,
-                [changedField]: newValue,
-            }
-            // currData[changedField] = newValue;
-            // return {...currData}
-        })
-    }
+    // const handleChange = (evt) => {
+    //     const changedField = evt.target.name;
+    //     const newValue = evt.target.value;
+    //     setFormData((currData) => {
+    //         return {
+    //             ...currData,
+    //             [changedField]: newValue,
+    //         }
+    //     })
+    // }
 
-    const originalHandleSubmit = (e) => {
-        e.preventDefault();
-        setIsPending(true)
-
-        const product = { title, price, category };
-
-        fetch('http://localhost:8080/products', {
+    const onSubmit = async (data) => {
+        try {
+            const res = await fetch('http://localhost:8080/products', {
             method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(product),
-        }).then(()=> {
-            navigate('/');
-            
-        }).catch(err => {
-            console.error(err);
-        });
-    }
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+            });
+
+            if (!res.ok) {
+            console.error("Error saving product");
+            return;
+            }
+            console.log("Navigating to /products"); 
+            // navigate('/products');
+        } catch (err) {
+            console.error("Network error:", err);
+        }
+    };
 
     return (
         <div>
             <Typography variant="h1" sx={{textAlign: "center"}}>Add New Product</Typography>
             <Box
                 component="form"
-                onSubmit={handleSubmit(originalHandleSubmit)}
+                onSubmit={handleSubmit(onSubmit)}
                 sx={{
                     maxWidth: 400,
                     mx: 'auto',
@@ -84,7 +73,6 @@ export default function MakeProductForm() {
                 error={!!errors.title}
                 helperText={errors.title?.message}
                 fullWidth
-                onChange={handleChange}
             />
 
             <TextField
@@ -98,63 +86,59 @@ export default function MakeProductForm() {
                 error={!!errors.price}
                 helperText={errors.price?.message}
                 fullWidth
-                onChange={handleChange}
             />
 
-            <FormControl fullWidth error={!!errors.category}>
-            <InputLabel>Category</InputLabel>
-            <Select
-            defaultValue=""
-            {...register('category', { required: 'Category is required' })}
-            >
-            {categories.map((cat) => (
-                <MenuItem key={cat} value={cat}>
-                {cat}
-                </MenuItem>
-                ))}
-            </Select>
-            </FormControl>
-                {!isPending && <Button type="submit" variant="contained">Add New Product</Button>}
-                {isPending && <Button type="submit" variant="contained" disabled>Adding New Product..</Button>}
-            <Button type="submit" variant="contained">
-                Submit
+            <TextField
+                label="Image URL"
+                {...register('image', {
+                required: 'Image URL is required',
+                pattern: {
+                    value: /^https?:\/\/.+/i,
+                    message: 'Enter a valid image URL',
+                }
+                })}
+                error={!!errors.imageUrl}
+                helperText={errors.imageUrl?.message}
+                fullWidth
+            />
+            {watch("imageUrl") && (
+                <img
+                    src={watch("image")}
+                    alt="Preview"
+                    style={{ maxWidth: '100%', maxHeight: 300 }}
+                    onError={(e) => {
+                    e.target.style.display = 'none';
+                    }}
+                />
+            )}
+            <Controller
+                name="category"
+                control={control}
+                defaultValue=""
+                rules={{ required: 'Category is required' }}
+                render={({ field }) => (
+                    <FormControl fullWidth error={!!errors.category}>
+                    <InputLabel>Category</InputLabel>
+                    <Select label="Category" {...field}>
+                        {categories.map((cat) => (
+                        <MenuItem key={cat} value={cat}>
+                            {cat}
+                        </MenuItem>
+                        ))}
+                    </Select>
+                    </FormControl>
+                )}
+            />
+
+            <Button type="submit" variant="contained" disabled={isSubmitting}>
+                {isSubmitting ? 'Adding...' : 'Add New Product'}
             </Button>
+              
                 <Link to={'/products'}>
                     Go back to all products
                 </Link>
             </Box>
         </div>
         
-  );
-        // <div>
-        //     <h1>This is the make new product form</h1>
-        //     <form onSubmit={handleSubmit}>
-        //         <div>
-        //             <label htmlFor="title">Enter the product title:</label>
-        //             <input type="text" id="title" placeholder="enter product name" value={title} onChange={(evt) => setTitle(evt.target.value)}  />
-        //         </div>
-        //         <div>
-        //             <label htmlFor="price">Enter the product price:</label>
-        //             <input type="text" id="price" placeholder="enter product price" value={price} onChange={(evt) => setPrice(evt.target.value)}  />
-        //         </div>
-        //         <div>
-        //             <label htmlFor="category">Enter the product category:</label>
-        //             <select value={category} name="category" id="category" onChange={(evt) => setCategory(evt.target.value)}>
-        //                 <option value="fruit">fruit</option>
-        //                 <option value="vegetable">vegetable</option>
-        //                 <option value="dairy">dairy</option>
-        //                 <option value="meat">meat</option>
-        //                 <option value="poultry">poultry</option>
-        //                 <option value="canned goods">canned goods</option>
-        //             </select>
-        //             {/* <input type="text" id="category" placeholder="enter product category" value={category} onChange={(evt) => setCategory(evt.target.value)}  /> */}
-        //         </div>
-        //         {!isPending && <button>Add New Product</button>}
-        //         {isPending && <button disabled>Adding New Product..</button>}
-        //     </form>
-        //     <footer>
-               
-        //     </footer>
-        // </div>
-    
-}
+  )};
+

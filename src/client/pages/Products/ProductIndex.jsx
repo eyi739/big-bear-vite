@@ -17,7 +17,7 @@ export default function ProductIndex(){
         <div>
             <CssBaseline/>
             <Typography variant="h1">All Products will be displayed here!!</Typography>
-            <Grid container display="flex-col"  sx={{ mx: 'auto', justifyContent: 'flex-end', }} >
+            <Grid container direction="row" sx={{ mx: 'auto', justifyContent: 'flex-end', }} >
                 {data.map((product, index) => (
                 <Grid item key={product.id} xs={12} sm={6} md={4} sx={{px: 2}}>
                     <Card>
@@ -40,7 +40,7 @@ export default function ProductIndex(){
                             <Typography variant="body2" color="text.secondary">
                                 Category: {product.category}
                             </Typography>
-                            <Link key={product} to={`/products/${product.id}`}>
+                            <Link to={`/products/${product.id}`}>
                                 {product.title}
                             </Link>
                         </CardContent>

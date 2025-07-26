@@ -59,59 +59,10 @@ const router = createBrowserRouter([
           },
         ],
       },
-      // {
-      //   path: 'about',
-      //   element: <About />,
-      // },
-      // {
-      //   path: 'contact',
-      //   element: <Contact />,
-      // },
+  
     ],
   },
 ]);
-//   {
-//     path: '/',
-//     element: <HomePage/>,
-//     errorElement: <NotFoundPage/>,
-//   },
-//   {
-//     path: '/products/new',
-//     element: <MakeProductForm/>,
-//     errorElement: <NotFoundPage/>,
-//   },
-  
-//   {
-//     path: '/products',
-//     element: <ProductIndex/>,
-//     errorElement: <NotFoundPage/>,
-//   },
-//   {
-//     path: '/products/:productId',
-//     element: <ShowPage/>
-//   },
-//   {
-//     path: '/products/:productId/edit',
-//     element: <EditProductPage/>
-//   },
-//   {
-//     path: '/profiles',
-//     element: <ProfilesPage/>,
-//     children: [{
-//       path: '/profiles/:profileId',
-//       element: <ProfilePage/>,
-//     }],
-//     errorElement: <NotFoundPage/>,
-//   },
-//   {
-//     element: <Layout />,
-//     children: [
-//       {path: '/', element: <Home />},
-//       {path: '/about', element: <About />},
-//       {path: '/contact', element: <Contact />},
-//     ]
-//   },
-// ])
 
 function App() {
 
