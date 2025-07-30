@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate, Link, } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -13,7 +14,7 @@ const categories = ['fruit', 'vegetable','poultry', 'dairy', 'meat', 'canned goo
 
 export default function MakeProductForm() {
     const navigate = useNavigate();
-
+    const [ localImage, setLocalImage ] = useState(null)
     const {
     register,
     handleSubmit,
@@ -88,29 +89,38 @@ export default function MakeProductForm() {
                 fullWidth
             />
 
+            <Typography variant="body2" color="text.secondary">Image URL or Upload</Typography>
             <TextField
                 label="Image URL"
                 {...register('image', {
-                required: 'Image URL is required',
-                pattern: {
-                    value: /^https?:\/\/.+/i,
-                    message: 'Enter a valid image URL',
-                }
+                    validate: value => {
+                    if (!value && !localImage) return 'Image is required';
+                    if (value && !/^https?:\/\/.+/i.test(value)) return 'Enter a valid image URL';
+                    return true;
+                    }
                 })}
-                error={!!errors.imageUrl}
-                helperText={errors.imageUrl?.message}
+                error={!!errors.image}
+                helperText={errors.image?.message}
                 fullWidth
+                disabled={!!localImage} // disable if local file is chosen
+                />
+
+            <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                disabled={!!watch("image")} // disable if image URL is filled
             />
-            {watch("imageUrl") && (
-                <img
-                    src={watch("image")}
+                {(watch("image") || localImage) && (
+            <img
+                    src={localImage || watch("image")}
                     alt="Preview"
                     style={{ maxWidth: '100%', maxHeight: 300 }}
                     onError={(e) => {
                     e.target.style.display = 'none';
                     }}
-                />
-            )}
+            />
+                )}
             <Controller
                 name="category"
                 control={control}

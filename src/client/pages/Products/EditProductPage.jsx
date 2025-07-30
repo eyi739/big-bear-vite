@@ -15,14 +15,25 @@ import Typography from "@mui/material/Typography";
 const categories = ['fruit', 'vegetable','poultry', 'dairy', 'meat', 'canned goods'];
 
 export default function EditProductPage() {
+  const [ localImage, setLocalImage ] = useState(null)
   const { productId } = useParams();
   const data = useFetch(`/products/${productId}`);
   const navigate = useNavigate();
+  
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setLocalImage(URL.createObjectURL(file))
+      setValue('image', '')
+    }
+  }
+
   const {
     register,
     handleSubmit,
     setValue,
     control,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm();
 
@@ -104,6 +115,39 @@ const onSubmit = async (formData) => {
           fullWidth
         />
 
+<Typography variant="body2" color="text.secondary">Image URL or Upload</Typography>
+
+<TextField
+  label="Image URL"
+  {...register('image', {
+    validate: value => {
+      if (!value && !localImage) return 'Image is required';
+      if (value && !/^https?:\/\/.+/i.test(value)) return 'Enter a valid image URL';
+      return true;
+    }
+  })}
+  error={!!errors.image}
+  helperText={errors.image?.message}
+  fullWidth
+  disabled={!!localImage} // disable if local file is chosen
+/>
+
+<input
+  type="file"
+  accept="image/*"
+  onChange={handleFileChange}
+  disabled={!!watch("image")} // disable if image URL is filled
+/>
+  {(watch("image") || localImage) && (
+  <img
+    src={localImage || watch("image")}
+    alt="Preview"
+    style={{ maxWidth: '100%', maxHeight: 300 }}
+    onError={(e) => {
+      e.target.style.display = 'none';
+    }}
+  />
+)}
     <FormControl fullWidth error={!!errors.category}>
     <InputLabel>Category</InputLabel>
     <Controller
