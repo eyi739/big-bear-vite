@@ -18,9 +18,11 @@ export default function MakeProductForm() {
     const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
     control,
     watch,
+    setError,
     } = useForm();
 
     // const handleChange = (evt) => {
@@ -34,6 +36,15 @@ export default function MakeProductForm() {
     //     })
     // }
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setLocalImage(URL.createObjectURL(file));
+            // Clear image URL input if a file is chosen
+            setValue('image', '');
+        }
+    };
+
     const onSubmit = async (data) => {
         try {
             const res = await fetch('http://localhost:8080/products', {
@@ -43,15 +54,28 @@ export default function MakeProductForm() {
             });
 
             if (!res.ok) {
-            console.error("Error saving product");
-            return;
+                const result = await res.json();
+
+                if (result.errors) {
+                    for (let field in result.errors) {
+                    setError(field, {
+                        type: "server",
+                        message: result.errors[field],
+                    });
+                    }
+                } else {
+                    throw new Error(result.error || "Something went wrong");
+                }
+
+                return;
+                }
+
+                // On success, navigate
+                navigate("/products");
+            } catch (err) {
+                alert(err.message);
             }
-            console.log("Navigating to /products"); 
-            // navigate('/products');
-        } catch (err) {
-            console.error("Network error:", err);
-        }
-    };
+            };
 
     return (
         <div>

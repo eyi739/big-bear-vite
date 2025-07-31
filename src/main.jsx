@@ -64,15 +64,14 @@ const router = createBrowserRouter([
   },
 ]);
 
-function App() {
+// function App() {
+//  return ( 
+//   <div className="App">
+//       {/* <RouterProvider router={router}/> */}
+//   </div>
+// )}
 
- return ( 
-  <div className="App">
-      {/* <RouterProvider router={router}/> */}
-  </div>
-)}
-
-export default App
+// export default App
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
