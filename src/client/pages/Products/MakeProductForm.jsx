@@ -15,6 +15,7 @@ const categories = ['fruit', 'vegetable','poultry', 'dairy', 'meat', 'canned goo
 export default function MakeProductForm() {
     const navigate = useNavigate();
     const [ localImage, setLocalImage ] = useState(null)
+
     const {
     register,
     handleSubmit,
@@ -83,6 +84,7 @@ export default function MakeProductForm() {
             <Box
                 component="form"
                 onSubmit={handleSubmit(onSubmit)}
+                noValidate
                 sx={{
                     maxWidth: 400,
                     mx: 'auto',
@@ -164,13 +166,22 @@ export default function MakeProductForm() {
                 )}
             />
 
+            <TextField
+                label="Description"
+                {...register('description', { required: 'Description is required' })}
+                error={!!errors.description}
+                helperText={errors.description?.message}
+                fullWidth
+            />
+
             <Button type="submit" variant="contained" disabled={isSubmitting}>
                 {isSubmitting ? 'Adding...' : 'Add New Product'}
             </Button>
               
-                <Link to={'/products'}>
-                    Go back to all products
-                </Link>
+            <Link to="/products" style={{ textAlign: 'center', textDecoration: 'underline', color: 'blue' }}>
+                Go back to all products
+            </Link>
+
             </Box>
         </div>
         
