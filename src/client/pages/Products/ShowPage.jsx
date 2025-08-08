@@ -8,6 +8,7 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
+import Rating from "@mui/material/Rating";
 // import UsernameForm from "../Profiles/UsernameForm";
 
 
@@ -32,28 +33,35 @@ export default function ShowPage(){
   };
 
     return (
-      <Box>
-        <Box sx={{ maxWidth: 1000, mx: 'auto', mt: 10 }}>      
-          <Card 
-            sx={{
-              width: '30%',
-              height: '100%',
-              objectFit: 'cover', // or contain
-              borderRadius: 2,
-              display: 'block',
-              mx: 'auto',         // horizontal centering
-            }}
-          >
-            <CardMedia
+      <Box component='div' sx={{display: 'flex', my: 10, mx: 10,}}>
+        <Rating name="size-large" defaultValue={1} size="large" />
+        <CardMedia
             component="img"
             height="300"
             image={data.image}
             alt={data.title}
+            
             sx={{
-                objectFit: "cover",
-                objectPosition: "right center",
+                objectFit: "contain",
+                objectPosition: "center",
+                // display: 'inline',
+                ml: 'auto',
                 }}
             />
+        <Box sx={{ maxWidth: 2000, mx: 'auto', mt: 10, }}>
+                
+          <Card 
+            sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover', // or contain
+              borderRadius: 2,
+              // objectPosition: "right",
+              // display: 'inline',
+              mr: '5',         // horizontal centering
+            }}
+          >
+            
             <CardContent>
               <Typography variant="h4" gutterBottom>
                 {data.title}
@@ -63,6 +71,9 @@ export default function ShowPage(){
               </Typography>
               <Typography variant="body1" color="text.secondary" gutterBottom>
                 Category: {data.category}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" gutterBottom>
+                Description: {data.description}
               </Typography>
 
               <Box mt={3} display="flex" gap={2}>
