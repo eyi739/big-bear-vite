@@ -56,7 +56,7 @@ export default function ShowPage() {
       const data = text ? JSON.parse(text) : {};
 
       if (res.ok) {
-        setReviews(data.reviews || []);
+        setReviews(prev => [...prev, data.review]);
         setRating(1);
         setReviewBody("");
         console.log("Review submitted successfully:", data.review);

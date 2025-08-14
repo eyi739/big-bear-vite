@@ -15,30 +15,12 @@ export default defineConfig(({ mode }) => {
       __APP_ENV__: JSON.stringify(env.APP_ENV),
         'process.env': {},
     },
-    // server: {
-    //   proxy: {
-    //     '/api': {
-    //       target: 'http://localhost:5173',
-    //       changeOrigin: true,
-    //       secure: false,
-    //     },
-    //   },
-    // },
+    server: {
+    proxy: {
+      '/api': 'http://localhost:8080'
+    }
+  }
   }
 })
 
 
-
-// export default defineConfig(({mode}) => {
-//   const env = loadEnv(mode, process.cwd(), '')
-//   return {
-//     // vite config
-//     define: {
-//       __APP_ENV__: JSON.stringify(env.APP_ENV),
-//     },
-// }
-//   plugins: [react()],
-//   define: {
-//     'process.env': {}
-//   },
-// })

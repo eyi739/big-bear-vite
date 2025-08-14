@@ -5,7 +5,7 @@ const apiHost = process.env.VITE_SERVER_HOST;
 const apiPort = process.env.VITE_SERVER_PORT;
 
 const apiHost2 = import.meta.env.VITE_SERVER_HOST;
-const apiPort2= import.meta.env.VITE_SERVER_PORT;
+const apiPort2 = import.meta.env.VITE_SERVER_PORT;
 
 export default function useFetch(path) {
     const [ data, setData ] = useState([]);
