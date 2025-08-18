@@ -1,195 +1,188 @@
-import { useState, useEffect } from "react";
-import { useNavigate, Link, useParams } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
+import { useParams } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
+import { useState, useEffect } from "react";
 
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Rating from "@mui/material/Rating";
+import TextField from "@mui/material/TextField";
 
-const categories = ["fruit", "vegetable", "poultry", "dairy", "meat", "canned goods"];
-
-export default function EditProductPage() {
-  const { productId } = useParams();
+export default function ShowPage() {
   const navigate = useNavigate();
-  const { data, error, isPending } = useFetch(`/api/products/${productId}`);
+  const { productId } = useParams();
 
-  const [localImage, setLocalImage] = useState(null);
+  // ✅ Correct destructuring from useFetch
+  const { data: product, error, isPending } = useFetch(`/api/products/${productId}`);
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    control,
-    watch,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    defaultValues: {
-      title: "",
-      price: "",
-      category: "",
-      description: "",
-      image: "",
-    },
-  });
+  const [reviews, setReviews] = useState([]);
+  const [rating, setRating] = useState(1);
+  const [reviewBody, setReviewBody] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  // Pre-fill form once product data is loaded
+  // ✅ Helper for image URL
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return "";
+    if (imagePath.startsWith("/uploads/")) {
+      return `${import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"}${imagePath}`;
+    }
+    return imagePath; // already a full URL
+  };
+
   useEffect(() => {
-    if (data) {
-      reset({
-        title: data.title || "",
-        price: data.price || "",
-        category: data.category || "",
-        description: data.description || "",
-        image: data.image || "",
-      });
-      setLocalImage(null);
+    if (product?.reviews) {
+      setReviews(product.reviews);
     }
-  }, [data, reset]);
+  }, [product]);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setLocalImage(URL.createObjectURL(file));
-      setValue("image", ""); // clear image URL if uploading a file
+  const handleDelete = async () => {
+    try {
+      const res = await fetch(`/api/products/${productId}`, { method: "DELETE" });
+      if (res.ok) navigate("/products");
+      else console.error("Failed to delete product");
+    } catch (err) {
+      console.error(err);
     }
   };
 
-  const onSubmit = async (formData) => {
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
     try {
-      const payload = { ...formData };
-
-      // If uploading a file, handle separately (you may need FormData)
-      if (localImage) {
-        console.warn("File upload not implemented in this example.");
-      }
-
-      const res = await fetch(`http://localhost:8080/api/products/${productId}`, {
-        method: "PUT",
+      const res = await fetch(`/api/products/${productId}/reviews`, {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ review: { rating, body: reviewBody } }),
       });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        console.error("Server error:", errorData);
-        return;
+      if (res.ok) {
+        const updatedProduct = await res.json();
+        setReviews(updatedProduct.reviews);
+        setRating(1);
+        setReviewBody("");
+      } else {
+        console.error("Failed to submit review");
       }
-
-      navigate("/products");
     } catch (err) {
-      console.error("Network error:", err);
+      console.error(err);
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  const handleDeleteClick = async () => {
-    try {
-      const res = await fetch(`http://localhost:8080/api/products/${productId}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) {
-        const errorData = await res.json();
-        console.error("Failed to delete product:", errorData);
-        return;
-      }
-      navigate("/products");
-    } catch (err) {
-      console.error("Network error while deleting:", err);
-    }
-  };
+  // ✅ Handle loading state
+  if (isPending) {
+    return <Typography>Loading product...</Typography>;
+  }
 
-  if (isPending) return <p>Loading product...</p>;
-  if (error) return <p style={{ color: "red" }}>Error: {error.message}</p>;
+  // ✅ Handle error state
+  if (error) {
+    return <Typography color="error">Error: {error.message}</Typography>;
+  }
+
+  // ✅ Handle no product found
+  if (!product) {
+    return <Typography>No product found.</Typography>;
+  }
 
   return (
-    <div>
-      <Typography variant="h4" sx={{ textAlign: "center" }}>Edit Product</Typography>
+    <Box sx={{ display: "flex", my: 10, mx: 10 }}>
+      <CardMedia
+        component="img"
+        height="500"
+        image={getImageUrl(product.image)}
+        alt={product.title}
+        sx={{
+          objectFit: "contain",
+          objectPosition: "center",
+          ml: "auto",
+        }}
+      />
 
-      <Box
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{ maxWidth: 400, mx: "auto", mt: 4, display: "flex", flexDirection: "column", gap: 2 }}
-      >
-        <TextField
-          label=""
-          {...register("title", { required: "Title is required" })}
-          error={!!errors.title}
-          helperText={errors.title?.message}
-          fullWidth
-        />
+      <Box sx={{ maxWidth: 2000, mx: "auto", mt: 10 }}>
+        <Card sx={{ width: "100%", height: "100%", borderRadius: 2 }}>
+          <CardContent>
+            <Typography variant="h4" gutterBottom>
+              {product.title}
+            </Typography>
+            <Typography variant="h6" color="text.secondary">
+              ${product.price}
+            </Typography>
+            <Typography variant="body1" color="text.secondary" gutterBottom>
+              Category: {product.category}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" gutterBottom>
+              Description: {product.description}
+            </Typography>
 
-        <TextField
-          label=""
-          type="number"
-          inputProps={{ step: "0.01" }}
-          {...register("price", { required: "Price is required", min: { value: 0.01, message: "Price must be positive" } })}
-          error={!!errors.price}
-          helperText={errors.price?.message}
-          fullWidth
-        />
+            {/* Review Form */}
+            <Box
+              component="form"
+              onSubmit={handleReviewSubmit}
+              sx={{ mt: 4, display: "flex", flexDirection: "column", gap: 2 }}
+            >
+              <Typography variant="h6">Leave a Review</Typography>
+              <Rating
+                name="review-rating"
+                value={rating}
+                onChange={(e, newValue) => setRating(newValue)}
+              />
+              <TextField
+                label="Your review"
+                multiline
+                rows={3}
+                value={reviewBody}
+                onChange={(e) => setReviewBody(e.target.value)}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={submitting || !reviewBody.trim()}
+              >
+                {submitting ? "Submitting..." : "Submit Review"}
+              </Button>
+            </Box>
 
-        <TextField
-          label="Description"
-          multiline
-          rows={3}
-          {...register("description")}
-          fullWidth
-        />
+            {/* Reviews */}
+            <Box mt={4}>
+              <Typography variant="h6" gutterBottom>
+                Reviews
+              </Typography>
+              {reviews.length > 0 ? (
+                reviews.map((rev, idx) => (
+                  <Box
+                    key={idx}
+                    sx={{ mb: 2, p: 2, border: "1px solid #ddd", borderRadius: 1 }}
+                  >
+                    <Rating value={rev.rating} readOnly size="small" />
+                    <Typography variant="body2">{rev.body}</Typography>
+                  </Box>
+                ))
+              ) : (
+                <Typography variant="body2" color="text.secondary">
+                  No reviews yet.
+                </Typography>
+              )}
+            </Box>
 
-        <Typography variant="body2" color="text.secondary">Image URL or Upload</Typography>
-
-        <TextField
-          label="Image URL"
-          {...register("image", {
-            validate: (value) => {
-              if (!value && !localImage) return "Image is required";
-              if (value && !/^https?:\/\/.+/i.test(value)) return "Enter a valid image URL";
-              return true;
-            },
-          })}
-          error={!!errors.image}
-          helperText={errors.image?.message}
-          fullWidth
-          disabled={!!localImage}
-        />
-
-        <input type="file" accept="image/*" onChange={handleFileChange} disabled={!!watch("image")} />
-
-        {(watch("image") || localImage) && (
-          <img
-            src={localImage || watch("image")}
-            alt="Preview"
-            style={{ maxWidth: "100%", maxHeight: 300 }}
-            onError={(e) => (e.target.style.display = "none")}
-          />
-        )}
-
-        <FormControl fullWidth error={!!errors.category}>
-          <InputLabel>Category</InputLabel>
-          <Controller
-            name="category"
-            control={control}
-            rules={{ required: "Category is required" }}
-            render={({ field }) => (
-              <Select {...field} label="Category">
-                {categories.map((cat) => (
-                  <MenuItem key={cat} value={cat}>{cat}</MenuItem>
-                ))}
-              </Select>
-            )}
-          />
-        </FormControl>
-
-        <Button type="submit" variant="contained" disabled={isSubmitting}>Submit Edits</Button>
-        <Button onClick={handleDeleteClick} variant="outlined" color="error">Delete Product</Button>
-        <Link to="/products">Go back to all products</Link>
+            {/* Actions */}
+            <Box mt={3} display="flex" gap={2}>
+              <Button variant="contained" component={Link} to={`/products/${productId}/edit`}>
+                Edit
+              </Button>
+              <Button variant="outlined" color="error" onClick={handleDelete}>
+                Delete
+              </Button>
+              <Button variant="text" component={Link} to="/products">
+                Back to Products
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
       </Box>
-    </div>
+    </Box>
   );
 }
